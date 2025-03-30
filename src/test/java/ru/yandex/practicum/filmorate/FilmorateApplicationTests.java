@@ -3,7 +3,6 @@ package ru.yandex.practicum.filmorate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import ru.yandex.practicum.filmorate.controller.FilmController;
 import ru.yandex.practicum.filmorate.controller.UserController;
 import ru.yandex.practicum.filmorate.exceptions.FilmNotFoundException;
@@ -53,11 +52,11 @@ class FilmorateApplicationTests {
 		Film film = new Film(1L, "filmName", "Description",
 				LocalDate.of(1985, 12, 29), 120);
 		filmController.create(film);
-		Film NonExistentFilm = new Film(999L, "filmName", "Description",
+		Film nonExistentFilm = new Film(999L, "filmName", "Description",
 				LocalDate.of(2000, 1, 1), 100);
 
 		assertThrows(FilmNotFoundException.class,
-				() -> filmController.update(NonExistentFilm),
+				() -> filmController.update(nonExistentFilm),
 				"Должно быть выброшено FilmNotFoundException");
 	}
 
@@ -76,12 +75,12 @@ class FilmorateApplicationTests {
 		User user = new User(1L, "userName", "Description",
 				"user@yandex.ru", LocalDate.of(2000, 1, 1));
 		userController.create(user);
-		User NonExistentUser = new User(555L, "userName", "Description",
+		User nonExistentUser = new User(555L, "userName", "Description",
 				"user@yandex.ru", LocalDate.of(2000, 1, 1));
 		userController.create(user);
 
 		assertThrows(UserNotFoundException.class,
-				() -> userController.update(NonExistentUser),
+				() -> userController.update(nonExistentUser),
 				"Должно быть выброшено UserNotFoundException");
 	}
 }
