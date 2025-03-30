@@ -24,7 +24,7 @@ public class FilmController {
     @PostMapping
     public Film create(@Valid @RequestBody Film film) {
         log.info("Получен HTTP-запрос на создание фильма: {}", film);
-        if (film.getReleaseDate().isBefore(LocalDate.of(1985, 12, 28))) {
+        if (film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
             String errorMessage = "Дата релиза не должна быть раньше 28 декабря 1895 года";
             log.error(errorMessage);
             throw new ReleaseDataException(errorMessage);
@@ -51,7 +51,7 @@ public class FilmController {
             log.error(errorMessage);
             throw new FilmNotFoundException(errorMessage);
         }
-        if (film.getReleaseDate().isBefore(LocalDate.of(1985, 12, 28))) {
+        if (film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
             String errorMessage = "Дата релиза не должна быть раньше 28 декабря 1895 года";
             log.error(errorMessage);
             throw new ReleaseDataException(errorMessage);

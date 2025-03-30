@@ -1,8 +1,6 @@
 package ru.yandex.practicum.filmorate.model;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -15,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Film {
     private Long id;
-    @NotEmpty(message = "Название не должно быть null или пустым")
+    @NotEmpty(message = "Название не должно быть пустым  и null")
     private String name;
     @Size(min = 1, max = 200)
     private String description;
