@@ -32,7 +32,7 @@ class FilmorateApplicationTests {
 	@Test
 	void createFilmWithEarlyReleaseDate() {
 		Film film = new Film(1L, "filmName", "Description",
-				LocalDate.of(1985, 12, 27), 120);
+				LocalDate.of(1895, 12, 27), 120);
 		assertThrows(ReleaseDataException.class, () -> filmController.create(film),
 				"Дата релиза не должна быть раньше 28 декабря 1895 года");
 	}
@@ -40,7 +40,7 @@ class FilmorateApplicationTests {
 	@Test
 	void createFilmWithCorrectReleaseDate() {
 		Film film = new Film(1L, "filmName", "Description",
-				LocalDate.of(1985, 12, 29), 120);
+				LocalDate.of(1895, 12, 29), 120);
 		Film createdFilm = filmController.create(film);
 		assertEquals(film.getName(), createdFilm.getName());
 		List<Film> films = filmController.getAll();
