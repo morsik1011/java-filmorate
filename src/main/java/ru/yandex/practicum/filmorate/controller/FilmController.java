@@ -44,11 +44,6 @@ public class FilmController {
     @PutMapping
     public Film update(@Valid @RequestBody Film film) {
         log.info("Получен HTTP-запрос на обновление фильма: {}", film);
-        if (film.getReleaseDate().isBefore(LocalDate.of(1985, 12, 28))) {
-            String errorMessage = "Дата релиза не должна быть раньше 28 декабря 1895 года";
-            log.error(errorMessage);
-            throw new ReleaseDataException(errorMessage);
-        }
         Long id = film.getId();
 
         if (!idToFilm.containsKey(id)) {
@@ -56,7 +51,11 @@ public class FilmController {
             log.error(errorMessage);
             throw new FilmNotFoundException(errorMessage);
         }
-
+        if (film.getReleaseDate().isBefore(LocalDate.of(1985, 12, 28))) {
+            String errorMessage = "Дата релиза не должна быть раньше 28 декабря 1895 года";
+            log.error(errorMessage);
+            throw new ReleaseDataException(errorMessage);
+        }
         idToFilm.put(id, film);
         log.info("Успешно обработан HTTP-запрос на обновление фильма: {}", film);
         return film;
