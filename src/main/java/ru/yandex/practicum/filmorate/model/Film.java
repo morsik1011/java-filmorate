@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate.model;
 
 import jakarta.validation.constraints.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 
@@ -11,13 +12,14 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Film {
-    private Long id;
+    Long id;
     @NotEmpty(message = "Название не должно быть пустым  и null")
-    private String name;
+    String name;
     @Size(min = 1, max = 200)
-    private String description;
-    private LocalDate releaseDate;
+    String description;
+    LocalDate releaseDate;
     @Positive(message = "Продолжительность фильма должна быть положительным числом")
-    private int duration;
+    int duration;
 }
