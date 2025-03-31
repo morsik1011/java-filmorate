@@ -4,20 +4,34 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Past;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
-    private Long id;
-    private String name;
+    Long id;
+    String name;
     @NotEmpty(message = "Логин не должен быть null или пуст")
-    private String login;
+    String login;
     @Email(message = "Электронная почта не соответствует формату")
     @NotEmpty(message = "Электронная почта не может быть пустой")
-    private String email;
+    String email;
     @Past(message = "Дата рождения не может быть в будущем")
-    private LocalDate birthday;
+    LocalDate birthday;
+    Set<Long> friendsId = new HashSet<>();
+
+    public void setFriendId(Long friendId) {
+        friendsId.add(friendId);
+    }
+
+    public void removeFriendId(Long id) {
+        friendsId.remove(id);
+    }
 }
+
