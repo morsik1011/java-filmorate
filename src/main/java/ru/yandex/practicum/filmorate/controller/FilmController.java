@@ -43,19 +43,19 @@ public class FilmController {
     public Film getById(@PathVariable Long id) {
         log.info("Получен HTTP-запрос на получение фильма по id: {}", id);
         Film film = filmService.getById(id);
-        log.debug("Найденный фильм: {}", film);
+        log.debug("Успешно обработан HTTP-запрос, найденный фильм: {}", film);
         return film;
     }
 
-    @PutMapping("/{id}/like/{userId}")
-    public void addLike(@PathVariable Long id, @PathVariable Long userId) {
+    @PutMapping("/{id}/like/{user-id}")
+    public void addLike(@PathVariable Long id, @PathVariable("user-id") Long userId) {
         log.info("Получен HTTP-запрос на лайк фильму с id: {}", id);
         filmService.addLike(id, userId);
         log.debug("Успешно поставлен лайк фильму с id: {}", id);
     }
 
-    @DeleteMapping("/{id}/like/{userId}")
-    public void deleteLike(@PathVariable Long id, @PathVariable Long userId) {
+    @DeleteMapping("/{id}/like/{user-id}")
+    public void deleteLike(@PathVariable Long id, @PathVariable("user-id") Long userId) {
         log.info("Получен HTTP-запрос на удаление лайка фильма с id: {}", id);
         filmService.deleteLike(id, userId);
         log.debug("Успешно удален лайк у фильма с id: {}", id);

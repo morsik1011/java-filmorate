@@ -48,16 +48,16 @@ public class UserController {
         return user;
     }
 
-    @PutMapping("/{id}/friends/{friendId}")
-    public void addFriend(@PathVariable Long id, @PathVariable Long friendId) {
+    @PutMapping("/{id}/friends/{friend-id}")
+    public void addFriend(@PathVariable Long id, @PathVariable("friend-id") Long friendId) {
         log.info("Получен HTTP-запрос на добавление в друзья пользователя с id: {}", friendId);
         userService.addFriend(id, friendId);
         log.info("Успешно обработан HTTP-запрос на добавление в друзья пользователя с id: {}", friendId);
 
     }
 
-    @DeleteMapping("/{id}/friends/{friendId}")
-    public void removeFriend(@PathVariable Long id, @PathVariable Long friendId) {
+    @DeleteMapping("/{id}/friends/{friend-id}")
+    public void removeFriend(@PathVariable Long id, @PathVariable("friend-id") Long friendId) {
         log.info("Получен HTTP-запрос на удаление из друзей пользователя с id: {}", friendId);
         userService.removeFriend(id, friendId);
         log.info("Успешно обработан HTTP-запрос на удаление из друзей пользователя с id: {}", friendId);
@@ -71,8 +71,8 @@ public class UserController {
         return userFriends;
     }
 
-    @GetMapping("{id}/friends/common/{otherId}")
-    public List<User> listOfCommonFriends(@PathVariable Long id, @PathVariable Long otherId) {
+    @GetMapping("{id}/friends/common/{other-id}")
+    public List<User> listOfCommonFriends(@PathVariable Long id, @PathVariable("other-id") Long otherId) {
         log.info("Получен HTTP-запрос на получение списка общих друзей пользователей с id: {}, {}", id, otherId);
         List<User> usersFriends = userService.listOfCommonFriends(id, otherId);
         log.info("Успешно обработан HTTP-запрос на получение списка общих друзей пользователей с id: {}, {}", id, otherId);
