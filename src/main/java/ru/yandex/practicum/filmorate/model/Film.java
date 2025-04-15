@@ -21,6 +21,7 @@ public class Film {
     LocalDate releaseDate;
     @Positive(message = "Продолжительность фильма должна быть положительным числом")
     int duration;
+
     Set<Long> likes = new HashSet<>();
 
     public void setLike(Long userId) {
@@ -30,4 +31,5 @@ public class Film {
     public void removeLike(Long userId) {
         likes.remove(userId);
     }
+
 }

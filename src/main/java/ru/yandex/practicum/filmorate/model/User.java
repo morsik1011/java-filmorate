@@ -24,6 +24,7 @@ public class User {
     String email;
     @Past(message = "Дата рождения не может быть в будущем")
     LocalDate birthday;
+
     Set<Long> friendsId = new HashSet<>();
 
     public void setFriendId(Long friendId) {
@@ -33,5 +34,6 @@ public class User {
     public void removeFriendId(Long id) {
         friendsId.remove(id);
     }
+
 }
 
