@@ -7,6 +7,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -22,4 +24,16 @@ public class User {
     String email;
     @Past(message = "Дата рождения не может быть в будущем")
     LocalDate birthday;
+
+    Set<Long> friendsId = new HashSet<>();
+
+    public void setFriendId(Long friendId) {
+        friendsId.add(friendId);
+    }
+
+    public void removeFriendId(Long id) {
+        friendsId.remove(id);
+    }
+
 }
+
