@@ -5,10 +5,9 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
-/**
- * Film.
- */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,4 +21,15 @@ public class Film {
     LocalDate releaseDate;
     @Positive(message = "Продолжительность фильма должна быть положительным числом")
     int duration;
+
+    Set<Long> likes = new HashSet<>();
+
+    public void setLike(Long userId) {
+        likes.add(userId);
+    }
+
+    public void removeLike(Long userId) {
+        likes.remove(userId);
+    }
+
 }

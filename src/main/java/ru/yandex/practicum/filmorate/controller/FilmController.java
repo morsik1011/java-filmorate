@@ -1,64 +1,72 @@
 package ru.yandex.practicum.filmorate.controller;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.filmorate.exceptions.FilmNotFoundException;
-import ru.yandex.practicum.filmorate.exceptions.ReleaseDataException;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.service.FilmService;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/films")
 public class FilmController {
 
-    private Map<Long, Film> idToFilm = new HashMap<>();
-    private Long idCounter = 1L;
+    private final FilmService filmService;
 
     @PostMapping
     public Film create(@Valid @RequestBody Film film) {
         log.info("Получен HTTP-запрос на создание фильма: {}", film);
-        if (film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
-            String errorMessage = "Дата релиза не должна быть раньше 28 декабря 1895 года";
-            log.error(errorMessage);
-            throw new ReleaseDataException(errorMessage);
-        }
-        film.setId(idCounter++);
-        idToFilm.put(film.getId(), film);
+        Film createdFilm = filmService.create(film);
         log.info("Успешно обработан HTTP-запрос на создание фильма: {}", film);
-        return film;
+        return createdFilm;
     }
 
     @GetMapping
     public List<Film> getAll() {
         log.info("Получен HTTP-запрос на получение всех фильмов");
-        return new ArrayList<>(idToFilm.values());
+        return filmService.getAll();
     }
 
     @PutMapping
     public Film update(@Valid @RequestBody Film film) {
         log.info("Получен HTTP-запрос на обновление фильма: {}", film);
-        Long id = film.getId();
-
-        if (!idToFilm.containsKey(id)) {
-            String errorMessage = String.format("Фильм с id %d не найден", id);
-            log.error(errorMessage);
-            throw new FilmNotFoundException(errorMessage);
-        }
-        if (film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
-            String errorMessage = "Дата релиза не должна быть раньше 28 декабря 1895 года";
-            log.error(errorMessage);
-            throw new ReleaseDataException(errorMessage);
-        }
-        idToFilm.put(id, film);
+        Film updatedFilm = filmService.update(film);
         log.info("Успешно обработан HTTP-запрос на обновление фильма: {}", film);
+        return updatedFilm;
+    }
+
+    @GetMapping("/{id}")
+    public Film getById(@PathVariable Long id) {
+        log.info("Получен HTTP-запрос на получение фильма по id: {}", id);
+        Film film = filmService.getById(id);
+        log.debug("Успешно обработан HTTP-запрос, найденный фильм: {}", film);
         return film;
+    }
+
+    @PutMapping("/{id}/like/{user-id}")
+    public void addLike(@PathVariable Long id, @PathVariable("user-id") Long userId) {
+        log.info("Получен HTTP-запрос на лайк фильму с id: {}", id);
+        filmService.addLike(id, userId);
+        log.debug("Успешно поставлен лайк фильму с id: {}", id);
+    }
+
+    @DeleteMapping("/{id}/like/{user-id}")
+    public void deleteLike(@PathVariable Long id, @PathVariable("user-id") Long userId) {
+        log.info("Получен HTTP-запрос на удаление лайка фильма с id: {}", id);
+        filmService.deleteLike(id, userId);
+        log.debug("Успешно удален лайк у фильма с id: {}", id);
+    }
+
+    @GetMapping("/popular")
+    public List<Film> getPopularFilms(@RequestParam(name = "count", required = false, defaultValue = "10") int count) {
+        log.info("Получен HTTP-запрос на получение самых популярных фильмов.");
+        List<Film> popularFilms = filmService.getPopularFilms(count);
+        log.debug("Успешно обработан HTTP-запрос на получение самых популярных фильмов.");
+        return popularFilms;
     }
 }
 
