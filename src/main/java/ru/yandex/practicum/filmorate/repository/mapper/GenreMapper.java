@@ -11,14 +11,14 @@ import java.sql.SQLException;
 public class GenreMapper implements RowMapper<Genre> {
 
 
-@Override
-public Genre mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-    Long id = resultSet.getLong("id");
-    String name = resultSet.getString("name");
+    @Override
+    public Genre mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+        Long id = resultSet.getLong("id");
+        String name = resultSet.getString("name");
 
-    return Genre.builder()
-            .id(id)
-            .name(name)
-            .build();
-}
+        return Genre.builder()
+                .id(id)
+                .name(name)
+                .build();
+    }
 }
