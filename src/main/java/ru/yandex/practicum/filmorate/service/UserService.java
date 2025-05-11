@@ -37,42 +37,24 @@ public class UserService {
     }
 
     public void addFriend(Long userId, Long friendId) {
-        User user = userStorage.getById(userId);
-        User friend = userStorage.getById(friendId);
-        if (user.getFriendsId().contains(friendId)) {
-            throw new UserAddFriendsException(String.format("Пользователь с id %d уже в списке друзей", friendId));
+        if (userId.equals(friendId)) {
+            throw new UserAddFriendsException("Пользователь не может добавить себя в друзья");
         }
-        user.setFriendId(friendId);
-        friend.setFriendId(userId);
-        userStorage.update(user);
-        userStorage.update(friend);
-    }
+        userStorage.addFriend(userId, friendId);
+        }
 
     public void removeFriend(Long userId, Long friendId) {
-        User user = userStorage.getById(userId);
-        User friend = userStorage.getById(friendId);
-        user.removeFriendId(friendId);
-        friend.removeFriendId(userId);
-        userStorage.update(user);
-        userStorage.update(friend);
+        userStorage.removeFriend(userId, friendId);
+
     }
 
     public List<User> listOfUserFriends(Long userId) {
-        User user = userStorage.getById(userId);
+        return userStorage.getUserFriends(userId);
 
-        return user.getFriendsId().stream()
-                .map(userStorage::getById)
-                .toList();
     }
 
     public List<User> listOfCommonFriends(Long userId, Long friendId) {
-        User user = userStorage.getById(userId);
-        User friend = userStorage.getById(friendId);
-
-        return user.getFriendsId().stream()
-                .filter(friend.getFriendsId()::contains)
-                .map(userStorage::getById)
-                .toList();
+        return userStorage.getCommonFriends(userId, friendId);
     }
 }
 

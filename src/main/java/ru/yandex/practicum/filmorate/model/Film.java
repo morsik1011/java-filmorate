@@ -6,8 +6,10 @@ import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,12 +24,14 @@ public class Film {
     @Positive(message = "Продолжительность фильма должна быть положительным числом")
     int duration;
     Set<Long> likes = new HashSet<>();
+    List<Genre> genres;
+    Rating mpa;
 
     public void setLike(Long userId) {
         likes.add(userId);
     }
 
-    public void removeLike(Long userId) {
+   public void removeLike(Long userId) {
         likes.remove(userId);
     }
 }
