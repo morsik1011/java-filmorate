@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS "likes", "friends", "users", "genre_film", "genres", "raiting", "films";
+
 CREATE TABLE IF NOT EXISTS users
         (
         id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
