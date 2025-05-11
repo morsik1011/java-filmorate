@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.repository.UserRepository;
 
-import java.util.*;
+import java.util.List;
 
 @Slf4j
 @Component
@@ -18,7 +18,7 @@ public class InMemoryUserStorage implements UserStorage {
 
     @Override
     public User create(User user) {
-   return userRepository.create(user);
+        return userRepository.create(user);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class InMemoryUserStorage implements UserStorage {
 
     @Override
     public User update(User user) {
-    return userRepository.update(user);
+        return userRepository.update(user);
     }
 
     @Override
@@ -37,16 +37,25 @@ public class InMemoryUserStorage implements UserStorage {
     }
 
     @Override
-    public void addFriend(Long user_id, Long friend_id){userRepository.addFriend(user_id, friend_id);}
+    public void addFriend(Long userId, Long friendId) {
+        userRepository.addFriend(userId, friendId);
+    }
 
     @Override
-    public void removeFriend(Long userId,Long  friendId){userRepository.removeFriend(userId,friendId);};
+    public void removeFriend(Long userId, Long friendId) {
+        userRepository.removeFriend(userId, friendId);
+    }
+
+    ;
 
     @Override
-    public List<User> getUserFriends (Long userId){ return userRepository.getUserFriends(userId);}
+    public List<User> getUserFriends(Long userId) {
+        return userRepository.getUserFriends(userId);
+    }
 
     @Override
-    public  List<User> getCommonFriends (Long userId, Long friendId){ return userRepository.getCommonFriends(userId,friendId);
+    public List<User> getCommonFriends(Long userId, Long friendId) {
+        return userRepository.getCommonFriends(userId, friendId);
     }
 }
 
