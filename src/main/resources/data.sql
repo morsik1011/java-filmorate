@@ -6,7 +6,7 @@ INSERT INTO rating (id,name) VALUES
                               (4,'R'),
                               (5,'NC-17');
 INSERT INTO genres (id,name) VALUES
-                             (1,'Комедия'),
+                             ( 1,'Комедия'),
                              ( 2,'Драма'),
                              ( 3,'Мультфильм'),
                              ( 4,'Триллер'),
