@@ -1,6 +1,8 @@
 package ru.yandex.practicum.filmorate.model;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -16,7 +18,7 @@ import java.util.Set;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Film {
     Long id;
-    @NotEmpty(message = "Название не должно быть пустым  и null")
+    @NotBlank(message = "Название не должно быть пустым  и null")
     String name;
     @Size(min = 1, max = 200)
     String description;
@@ -31,7 +33,7 @@ public class Film {
         likes.add(userId);
     }
 
-   public void removeLike(Long userId) {
+    public void removeLike(Long userId) {
         likes.remove(userId);
     }
 }
