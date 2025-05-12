@@ -65,4 +65,22 @@ public class GlobalExceptionHandler {
                 .description(exception.getMessage())
                 .build();
     }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiError handleRatingNotFound(RatingNotFoundException exception) {
+        return ApiError.builder()
+                .errorCode(HttpStatus.NOT_FOUND.value())
+                .description(exception.getMessage())
+                .build();
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiError handleGenreNotFound(GenreNotFoundException exception) {
+        return ApiError.builder()
+                .errorCode(HttpStatus.NOT_FOUND.value())
+                .description(exception.getMessage())
+                .build();
+    }
 }

@@ -53,7 +53,6 @@ public class UserController {
         log.info("Получен HTTP-запрос на добавление в друзья пользователя с id: {}", friendId);
         userService.addFriend(id, friendId);
         log.info("Успешно обработан HTTP-запрос на добавление в друзья пользователя с id: {}", friendId);
-
     }
 
     @DeleteMapping("/{id}/friends/{friend-id}")
